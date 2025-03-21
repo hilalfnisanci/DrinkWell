@@ -35,10 +35,10 @@ We may terminate or suspend your access to the App immediately, without prior no
 We reserve the right to modify or replace these Terms at any time. It is your responsibility to review these Terms periodically.
 
 ### Governing Law
-These Terms shall be governed by the laws of [Your Country/State], without regard to its conflict of law provisions.
+These Terms shall be governed by the laws of Turkey, without regard to its conflict of law provisions.
 
 ### Contact Us
-If you have any questions about these Terms, please contact us at: [your-email@example.com]
+If you have any questions about these Terms, please contact us at: [hilalfnisanci@gmail.com]
 
 ## Türkçe / Turkish
 
@@ -73,7 +73,7 @@ Herhangi bir nedenle, önceden bildirimde bulunmaksızın veya sorumluluk almaks
 Bu Koşulları istediğimiz zaman değiştirme veya değiştirme hakkını saklı tutarız. Bu Koşulları düzenli olarak gözden geçirmek sizin sorumluluğunuzdadır.
 
 ### Geçerli Hukuk
-Bu Koşullar, [Ülkeniz/Eyaletiniz] kanunlarına tabi olacaktır, kanunların çatışması hükümleri dikkate alınmaksızın.
+Bu Koşullar, Türkiye Cumhuriyeti kanunlarına tabi olacaktır, kanunların çatışması hükümleri dikkate alınmaksızın.
 
 ### Bize Ulaşın
-Bu Koşullar hakkında herhangi bir sorunuz varsa, lütfen bizimle iletişime geçin: [your-email@example.com]
+Bu Koşullar hakkında herhangi bir sorunuz varsa, lütfen bizimle iletişime geçin: [hilalfnisanci@gmail.com]
