@@ -1,5 +1,5 @@
    # DrinkWell Uygulama Belgeleri
 
-   [Gizlilik Politikası](privacy)
+   [Gizlilik Politikası](privacy.md)
    
-   [Kullanım Koşulları](terms)
+   [Kullanım Koşulları](terms.md)
