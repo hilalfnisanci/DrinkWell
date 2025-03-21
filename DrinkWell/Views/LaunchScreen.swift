@@ -34,6 +34,7 @@ struct LaunchScreen: View {
                     .shadow(color: .black.opacity(0.2), radius: 3)
             }
         }
+        .accessibilityIdentifier("LaunchScreen")
     }
 }
 

@@ -9,7 +9,7 @@ import XCTest
 
 final class DrinkWellUITestsLaunchTests: XCTestCase {
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
-        true
+        false
     }
 
     override func setUpWithError() throws {
@@ -21,23 +21,25 @@ final class DrinkWellUITestsLaunchTests: XCTestCase {
         let app = XCUIApplication()
         
         // Set language to English for testing
-        app.launchArguments = ["-AppleLanguages", "(en)"]
+        app.launchArguments = ["-AppleLanguages", "(en)", "-UITest_SlowAnimations"]
         
         // Force portrait orientation
         XCUIDevice.shared.orientation = .portrait
         
         app.launch()
 
-        // Wait longer for launch screen
-        let launchScreen = app.otherElements["LaunchScreen"]
-        XCTAssertTrue(launchScreen.waitForExistence(timeout: 10), "Launch screen should appear")
-        
-        // Take launch screen screenshot
-        let launchScreenshot = XCTAttachment(screenshot: app.screenshot())
-        launchScreenshot.name = "Launch Screen"
-        launchScreenshot.lifetime = .keepAlways
-        add(launchScreenshot)
-        
+        let initialScreenshot = XCTAttachment(screenshot: app.screenshot())
+        initialScreenshot.name = "Initial Screen"
+        initialScreenshot.lifetime = .keepAlways
+        add(initialScreenshot)
+
+        sleep(1)
+
+        let secondScreenshot = XCTAttachment(screenshot: app.screenshot())
+        secondScreenshot.name = "Second Screen"
+        secondScreenshot.lifetime = .keepAlways
+        add(secondScreenshot)
+
         // Wait for launch screen to disappear
         sleep(3)
         

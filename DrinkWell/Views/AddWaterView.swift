@@ -27,6 +27,7 @@ struct AddWaterView: View {
                     Text("\(Int(amount)) ml")
                         .font(.headline)
                         .frame(maxWidth: .infinity, alignment: .center)
+                        .accessibilityIdentifier("amount_text")
                     
                     // Preset amount buttons
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 6), spacing: 4) {
@@ -41,6 +42,7 @@ struct AddWaterView: View {
                             }
                             .buttonStyle(.bordered)
                             .frame(height: 36)
+                            .accessibilityIdentifier("preset_amount_\(Int(preset))")
                         }
                     }
                     .padding(.vertical, 4)
@@ -48,6 +50,7 @@ struct AddWaterView: View {
                 
                 Section(header: Text("note_header".localized)) {
                     TextField("optional_note".localized, text: $note)
+                        .accessibilityIdentifier("note_textfield")
                 }
             }
             .navigationTitle("add_water_title".localized)
@@ -57,6 +60,7 @@ struct AddWaterView: View {
                     Button("cancel_button".localized) {
                         isPresented = false
                     }
+                    .accessibilityIdentifier("cancel_button")
                 }
                 
                 ToolbarItem(placement: .confirmationAction) {
@@ -64,6 +68,7 @@ struct AddWaterView: View {
                         onAdd(amount, note.isEmpty ? nil : note)
                         isPresented = false
                     }
+                    .accessibilityIdentifier("add_button")
                 }
             }
         }

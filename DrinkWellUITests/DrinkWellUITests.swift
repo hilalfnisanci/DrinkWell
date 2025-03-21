@@ -28,9 +28,6 @@ final class DrinkWellUITests: XCTestCase {
     }
     
     func testOnboardingFlow() throws {
-        // Log UI hierarchy for debugging
-        print("Available UI Elements: \(app.debugDescription)")
-        
         // Wait for app to fully load - check for any text element first
         let startupWait = XCTWaiter.wait(for: [XCTNSPredicateExpectation(
             predicate: NSPredicate(format: "exists == true"),
@@ -158,12 +155,12 @@ final class DrinkWellUITests: XCTestCase {
         addWaterButton.tap()
         
         // Find and tap 250ml button
-        let waterAmountButton = app.buttons["250ml"]
+        let waterAmountButton = app.buttons["preset_amount_250"]
         XCTAssertTrue(waterAmountButton.waitForExistence(timeout: 5), "250ml button should be visible")
         waterAmountButton.tap()
         
         // Check progress text
-        let progressText = app.staticTexts.element(matching: NSPredicate(format: "label CONTAINS[c] 'ml'"))
+        let progressText = app.staticTexts["amount_text"]
         XCTAssertTrue(progressText.waitForExistence(timeout: 5), "Progress text should be visible")
     }
     

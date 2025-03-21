@@ -89,6 +89,7 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .cornerRadius(12)
                     }
+                    .accessibilityIdentifier("add_water_button")
                     .padding(.horizontal)
                     
                     // Daily records list
