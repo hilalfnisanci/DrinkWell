@@ -42,7 +42,7 @@ Our App is not directed to children under 13. We do not knowingly collect inform
 We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.
 
 ### Contact Us
-If you have any questions about this Privacy Policy, please contact us at: [your-email@example.com]
+If you have any questions about this Privacy Policy, please contact us at: [hilalfnisanci@gmail.com]
 
 ## Türkçe / Turkish
 
@@ -84,4 +84,4 @@ Uygulamamız 13 yaşın altındaki çocuklara yönelik değildir. 13 yaşın alt
 Gizlilik Politikamızı zaman zaman güncelleyebiliriz. Yeni Gizlilik Politikasını bu sayfada yayınlayarak herhangi bir değişikliği size bildireceğiz.
 
 ### Bize Ulaşın
-Bu Gizlilik Politikası hakkında herhangi bir sorunuz varsa, lütfen bizimle iletişime geçin: [your-email@example.com]
+Bu Gizlilik Politikası hakkında herhangi bir sorunuz varsa, lütfen bizimle iletişime geçin: [hilalfnisanci@gmail.com]
