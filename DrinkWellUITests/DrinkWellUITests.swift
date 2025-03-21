@@ -4,40 +4,52 @@
 //
 //  Created by Hilal on 18.03.2025.
 //
-
 import XCTest
 
 final class DrinkWellUITests: XCTestCase {
-
+    let app = XCUIApplication()
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    @MainActor
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
         app.launch()
-
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
-
-    @MainActor
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
+    
+    func testOnboardingFlow() throws {
+        // Test first launch onboarding
+        let welcomeTitle = app.staticTexts["welcome_title"]
+        XCTAssertTrue(welcomeTitle.exists)
+        
+        // Language selection
+        let languagePicker = app.pickers["language_section"]
+        XCTAssertTrue(languagePicker.exists)
+        
+        // Navigate through onboarding
+        app.buttons["next_button"].tap()
+        
+        // Fill personal info
+        let nameField = app.textFields["name_placeholder"]
+        nameField.tap()
+        nameField.typeText("Test User")
+        
+        let heightField = app.textFields["height_placeholder"]
+        heightField.tap()
+        heightField.typeText("170")
+        
+        let weightField = app.textFields["weight_placeholder"]
+        weightField.tap()
+        weightField.typeText("70")
+        
+        app.buttons["next_button"].tap()
+        app.buttons["start_button"].tap()
+    }
+    
+    func testAddWaterIntake() throws {
+        // Test adding water intake
+        app.buttons["add_water_button"].tap()
+        app.buttons["250ml"].tap()
+        
+        // Verify water intake is added
+        let progressText = app.staticTexts.containing(NSPredicate(format: "label CONTAINS[c] 'ml'")).firstMatch
+        XCTAssertTrue(progressText.exists)
     }
 }

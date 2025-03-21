@@ -7,26 +7,84 @@
 
 import SwiftUI
 import SwiftData
+import UserNotifications 
 
 @main
 struct DrinkWellApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+    @StateObject private var preferences = UserPreferences.shared
+    @State private var isLaunchScreenShowing = true
+    @AppStorage("isFirstLaunch") private var isFirstLaunch = true
+    @State private var selectedTab = 0
+    
+    init() {
 
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
+        if let languageCode = UserDefaults.standard.string(forKey: "selectedLanguage") {
+            UserDefaults.standard.set([languageCode], forKey: "AppleLanguages")
+            UserDefaults.standard.synchronize()
         }
-    }()
+
+        // Check and configure notifications
+        if UserPreferences.shared.notificationsEnabled {
+            NotificationManager.shared.checkAuthorizationStatus()
+            
+            let enabled = UserPreferences.shared.notificationsEnabled
+            let frequency = UserPreferences.shared.notificationFrequency
+            // Schedule notifications (if permission is granted)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                if NotificationManager.shared.isNotificationsAuthorized {
+                    NotificationManager.shared.updateFromSettings(
+                        isEnabled: enabled, 
+                        frequency: frequency
+                    )
+                }
+            }
+        }
+    }
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ZStack {
+                if isLaunchScreenShowing {
+                    LaunchScreen()
+                        .transition(.opacity)
+                        .zIndex(1)
+                        .onAppear {
+                            // Remove Launch Screen after 2 seconds
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                withAnimation {
+                                    isLaunchScreenShowing = false
+                                }
+                            }
+                        }
+                } else {
+                    if isFirstLaunch {
+                        OnboardingView(isFirstLaunch: $isFirstLaunch)
+                            .environmentObject(preferences)
+                            .preferredColorScheme(.light)
+                    } else {
+                        ContentView(selectedTab: $selectedTab)
+                            .preferredColorScheme(preferences.isDarkMode ? .dark : .light)
+                            .environmentObject(preferences)
+                    }
+                }
+            }
+            .onAppear {
+                // Reset notifications
+                NotificationManager.shared.resetBadgeCount()
+            }
+            .onOpenURL { url in
+                if url.scheme == "drinkwell" {
+                    selectedTab = 0
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: Notification.Name("LanguageChanged"))) { _ in
+                // Restart the app when the language changes
+                guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                    let window = windowScene.windows.first
+                else { return }
+                
+                window.rootViewController = UIHostingController(rootView: ContentView(selectedTab: $selectedTab))
+            }
         }
-        .modelContainer(sharedModelContainer)
     }
 }

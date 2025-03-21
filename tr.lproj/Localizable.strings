@@ -1,0 +1,148 @@
+/* 
+  Localizable.strings
+  DrinkWell
+
+  Created by Hilal on 20.03.2025.
+  
+*/
+// OnboardingView
+"welcome_title" = "DrinkWell'e Hoş Geldiniz";
+"welcome_description" = "Sağlıklı bir yaşam için size özel su takip uygulaması";
+"personal_info_title" = "Kişisel Bilgileriniz";
+"personal_info_description" = "Size daha iyi hizmet verebilmemiz için lütfen aşağıdaki bilgilerinizi girin:";
+"name_label" = "Adınız";
+"height_label" = "Boyunuz";
+"weight_label" = "Kilonuz";
+"cm_unit" = "cm";
+"kg_unit" = "kg";
+"next_button" = "İleri";
+"back_button" = "Geri";
+"start_button" = "Başla";
+"great_title" = "Harika!";
+"info_saved_message" = "Bilgileriniz kaydedildi. Şimdi DrinkWell'i kullanmaya başlayabilirsiniz.";
+"daily_recommendation" = "Günlük tavsiye edilen su miktarı:";
+
+// ContentView
+"app_name" = "DrinkWell";
+"target_label" = "Hedef:";
+"drunk_label" = "İçilen";
+"remaining_label" = "Kalan";
+"add_water_button" = "Su Ekle";
+"today_records" = "Bugünkü Kayıtlar";
+
+// SettingsView
+"settings_title" = "Ayarlar";
+"water_intake_goal" = "Su Alım Hedefi";
+"daily_target" = "Günlük Hedef";
+"suggested_amount" = "Tavsiye:";
+"apply_suggestion" = "Tavsiyeyi Uygula";
+"notifications_section" = "Bildirimler";
+"enable_notifications" = "Bildirimleri Etkinleştir";
+"frequency_label" = "Sıklık: %d saatte bir";
+"profile_section" = "Profil Bilgileri";
+"username_label" = "Kullanıcı Adı";
+"appearance_section" = "Görünüm";
+"dark_mode" = "Koyu Mod";
+"units_section" = "Birimler";
+"use_metric" = "Metrik Sistem Kullan (ml/kg/cm)";
+"about_section" = "Hakkında";
+"app_version" = "Uygulama Sürümü";
+"privacy_policy" = "Gizlilik Politikası";
+"terms_of_use" = "Kullanım Koşulları";
+"language_section" = "Dil";
+
+// AddWaterView
+"amount_header" = "Miktar (ml)";
+"note_header" = "Not";
+"optional_note" = "İsteğe bağlı not";
+"add_water_title" = "Su Ekle";
+"cancel_button" = "İptal";
+"add_button" = "Ekle";
+
+// ContentView Tabs
+"home_tab" = "Ana Sayfa";
+"stats_tab" = "İstatistikler";
+"settings_tab" = "Ayarlar";
+
+// OnboardingView Additional
+"name_placeholder" = "İsminizi girin";
+"height_placeholder" = "Boyunuzu girin";
+"weight_placeholder" = "Kilonuzu girin";
+"done_button" = "Tamam";
+
+// SettingsView Additional
+"notification_permission_denied_title" = "Bildirim İzni Reddedildi";
+"notification_permission_message" = "DrinkWell'in size su içme hatırlatıcıları gönderebilmesi için cihaz ayarlarından bildirimlere izin vermeniz gerekiyor.";
+"open_settings" = "Ayarları Aç";
+"inch_unit" = "inç";
+"lb_unit" = "lb";
+
+// StatsView
+"last_seven_days" = "Son 7 Gün";
+"daily_water_intake" = "Günlük su alımı";
+"monthly_view" = "Aylık Görünüm";
+"daily_water_intake_and_average" = "Günlük su alımı ve ortalama";
+"day_label" = "Gün";
+"amount_label" = "Miktar";
+"average_label" = "Ortalama";
+"target_label" = "Hedef";
+"daily_intake" = "Günlük Alım";
+"monthly_average" = "Aylık Ortalama";
+"monthly_average_title" = "Aylık Ortalama";
+"highest_intake" = "En Yüksek";
+"lowest_intake" = "En Düşük";
+"target_reached" = "Hedefe Ulaşılan";
+"days_count" = "%d gün";
+"stats_title" = "İstatistikler";
+
+// Chart Legend Labels
+"legend_daily_intake" = "Günlük Alım";
+"legend_monthly_average" = "Aylık Ortalama";
+"legend_target" = "Hedef";
+
+// Chart Axis Labels
+"chart_day_axis" = "Gün";
+"chart_amount_axis" = "Miktar";
+
+// NotificationManager
+"notification_title" = "Su İçme Zamanı!";
+"notification_message_1" = "Günlük hedefinize ulaşmak için biraz su için.";
+"notification_message_2" = "Sağlıklı kalmak için hidrasyon çok önemli!";
+"notification_message_3" = "Su içmek metabolizmanızı hızlandırır.";
+"notification_message_4" = "Bir bardak su sizi daha enerjik hissettirir.";
+"drank_action" = "İçtim";
+"test_notification_title" = "Test Bildirimi";
+"test_notification_message" = "Bu bir test bildirimidir. Bildirimler çalışıyor!";
+
+// Debug Messages
+"debug_no_permission" = "Bildirim izni yok, bildirimleri planlayamıyor";
+"debug_notification_hours" = "Bildirim saatleri:";
+"debug_notification_scheduled" = "Bildirim başarıyla planlandı: saat";
+"debug_notification_failed" = "Bildirim planlanamadı:";
+"debug_notifications_cancelled" = "Tüm bildirimler iptal edildi";
+"debug_notification_cancelled" = "Bildirim iptal edildi, kimlik:";
+"debug_badge_reset_error" = "Badge sıfırlama hatası:";
+"debug_user_selected_drank" = "Kullanıcı 'İçtim' eylemini seçti";
+
+// WaterViewModel Errors
+"error_load_failed" = "Su alımları yüklenemedi";
+"error_save_failed" = "Su alımı kaydedilemedi";
+"error_delete_failed" = "Su alımı silinemedi";
+
+// DataController Errors
+"error_container_url_not_found" = "Container URL bulunamadı";
+"error_model_container_init" = "ModelContainer oluşturulamadı";
+
+// Widget
+"widget_display_name" = "Su Takibi";
+"widget_description" = "Günlük su alımınızı takip edin";
+"widget_consumed" = "İçilen";
+"widget_goal" = "Hedef";
+"widget_remaining" = "Kalan";
+
+// Widget Control
+"widget_start_timer" = "Zamanlayıcıyı Başlat";
+"widget_timer_on" = "Açık";
+"widget_timer_off" = "Kapalı";
+"widget_timer" = "Zamanlayıcı";
+"widget_timer_description" = "Zamanlayıcı kontrolü.";

@@ -6,7 +6,22 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		9A0CFE232D8C8D92008C0EFD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A0CFE212D8C8D92008C0EFD /* Localizable.strings */; };
+		9A234E742D8AECD30020FBC9 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A234E732D8AECD20020FBC9 /* WidgetKit.framework */; };
+		9A234E752D8AECD30020FBC9 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A20FD632D8A3FA50038C8C3 /* SwiftUI.framework */; };
+		9A63412F2D8AF7C100093926 /* DrinkWellWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9A234E722D8AECD20020FBC9 /* DrinkWellWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9AF8B3552D8D850800B6F9BE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9A0CFE212D8C8D92008C0EFD /* Localizable.strings */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
+		9A234E822D8AECD40020FBC9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A9208E22D89FB0500C4A4DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A234E712D8AECD20020FBC9;
+			remoteInfo = DrinkWellWidgetExtension;
+		};
 		9A9208FD2D89FB0600C4A4DA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9A9208E22D89FB0500C4A4DA /* Project object */;
@@ -23,15 +38,72 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9A20FD1A2D8A37AB0038C8C3 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				9A63412F2D8AF7C100093926 /* DrinkWellWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		9A0CFE222D8C8D92008C0EFD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; usesTabs = 0; };
+		9A0CFE242D8C8F9F008C0EFD /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9A20FD632D8A3FA50038C8C3 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		9A234E722D8AECD20020FBC9 /* DrinkWellWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DrinkWellWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A234E732D8AECD20020FBC9 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		9A234E892D8AECEA0020FBC9 /* DrinkWellWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DrinkWellWidgetExtension.entitlements; sourceTree = "<group>"; };
 		9A9208EA2D89FB0500C4A4DA /* DrinkWell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrinkWell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A9208FC2D89FB0600C4A4DA /* DrinkWellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrinkWellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A9209062D89FB0600C4A4DA /* DrinkWellUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrinkWellUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9A14036B2D8D86A1001C17F3 /* Exceptions for "DrinkWell" folder in "DrinkWellWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Utilities/LocalizationManager.swift,
+				"Utilities/String+Localization.swift",
+			);
+			target = 9A234E712D8AECD20020FBC9 /* DrinkWellWidgetExtension */;
+		};
+		9A234E872D8AECD40020FBC9 /* Exceptions for "DrinkWellWidget" folder in "DrinkWellWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9A234E712D8AECD20020FBC9 /* DrinkWellWidgetExtension */;
+		};
+		9A234E8B2D8AF05C0020FBC9 /* Exceptions for "DrinkWell" folder in "DrinkWell" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9A9208E92D89FB0500C4A4DA /* DrinkWell */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		9A234E762D8AECD30020FBC9 /* DrinkWellWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9A234E872D8AECD40020FBC9 /* Exceptions for "DrinkWellWidget" folder in "DrinkWellWidgetExtension" target */,
+			);
+			path = DrinkWellWidget;
+			sourceTree = "<group>";
+		};
 		9A9208EC2D89FB0500C4A4DA /* DrinkWell */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9A234E8B2D8AF05C0020FBC9 /* Exceptions for "DrinkWell" folder in "DrinkWell" target */,
+				9A14036B2D8D86A1001C17F3 /* Exceptions for "DrinkWell" folder in "DrinkWellWidgetExtension" target */,
+			);
 			path = DrinkWell;
 			sourceTree = "<group>";
 		};
@@ -48,6 +120,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9A234E6F2D8AECD20020FBC9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A234E752D8AECD30020FBC9 /* SwiftUI.framework in Frameworks */,
+				9A234E742D8AECD30020FBC9 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9A9208E72D89FB0500C4A4DA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -72,12 +153,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A20FD602D8A3FA50038C8C3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9A20FD632D8A3FA50038C8C3 /* SwiftUI.framework */,
+				9A234E732D8AECD20020FBC9 /* WidgetKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9A9208E12D89FB0500C4A4DA = {
 			isa = PBXGroup;
 			children = (
+				9A0CFE212D8C8D92008C0EFD /* Localizable.strings */,
+				9A234E892D8AECEA0020FBC9 /* DrinkWellWidgetExtension.entitlements */,
 				9A9208EC2D89FB0500C4A4DA /* DrinkWell */,
 				9A9208FF2D89FB0600C4A4DA /* DrinkWellTests */,
 				9A9209092D89FB0600C4A4DA /* DrinkWellUITests */,
+				9A234E762D8AECD30020FBC9 /* DrinkWellWidget */,
+				9A20FD602D8A3FA50038C8C3 /* Frameworks */,
 				9A9208EB2D89FB0500C4A4DA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +182,7 @@
 				9A9208EA2D89FB0500C4A4DA /* DrinkWell.app */,
 				9A9208FC2D89FB0600C4A4DA /* DrinkWellTests.xctest */,
 				9A9209062D89FB0600C4A4DA /* DrinkWellUITests.xctest */,
+				9A234E722D8AECD20020FBC9 /* DrinkWellWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,6 +190,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9A234E712D8AECD20020FBC9 /* DrinkWellWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A234E882D8AECD40020FBC9 /* Build configuration list for PBXNativeTarget "DrinkWellWidgetExtension" */;
+			buildPhases = (
+				9A234E6E2D8AECD20020FBC9 /* Sources */,
+				9A234E6F2D8AECD20020FBC9 /* Frameworks */,
+				9A234E702D8AECD20020FBC9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				9A234E762D8AECD30020FBC9 /* DrinkWellWidget */,
+			);
+			name = DrinkWellWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = DrinkWellWidgetExtension;
+			productReference = 9A234E722D8AECD20020FBC9 /* DrinkWellWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		9A9208E92D89FB0500C4A4DA /* DrinkWell */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9A9209102D89FB0600C4A4DA /* Build configuration list for PBXNativeTarget "DrinkWell" */;
@@ -102,10 +219,12 @@
 				9A9208E62D89FB0500C4A4DA /* Sources */,
 				9A9208E72D89FB0500C4A4DA /* Frameworks */,
 				9A9208E82D89FB0500C4A4DA /* Resources */,
+				9A20FD1A2D8A37AB0038C8C3 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9A234E832D8AECD40020FBC9 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				9A9208EC2D89FB0500C4A4DA /* DrinkWell */,
@@ -173,6 +292,9 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					9A234E712D8AECD20020FBC9 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					9A9208E92D89FB0500C4A4DA = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -192,6 +314,7 @@
 			knownRegions = (
 				en,
 				Base,
+				tr,
 			);
 			mainGroup = 9A9208E12D89FB0500C4A4DA;
 			minimizedProjectReferenceProxies = 1;
@@ -203,15 +326,25 @@
 				9A9208E92D89FB0500C4A4DA /* DrinkWell */,
 				9A9208FB2D89FB0600C4A4DA /* DrinkWellTests */,
 				9A9209052D89FB0600C4A4DA /* DrinkWellUITests */,
+				9A234E712D8AECD20020FBC9 /* DrinkWellWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9A234E702D8AECD20020FBC9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AF8B3552D8D850800B6F9BE /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9A9208E82D89FB0500C4A4DA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A0CFE232D8C8D92008C0EFD /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +365,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9A234E6E2D8AECD20020FBC9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9A9208E62D89FB0500C4A4DA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -256,6 +396,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		9A234E832D8AECD40020FBC9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9A234E712D8AECD20020FBC9 /* DrinkWellWidgetExtension */;
+			targetProxy = 9A234E822D8AECD40020FBC9 /* PBXContainerItemProxy */;
+		};
 		9A9208FE2D89FB0600C4A4DA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9A9208E92D89FB0500C4A4DA /* DrinkWell */;
@@ -268,12 +413,85 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		9A0CFE212D8C8D92008C0EFD /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9A0CFE222D8C8D92008C0EFD /* en */,
+				9A0CFE242D8C8F9F008C0EFD /* tr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		9A234E852D8AECD40020FBC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = DrinkWellWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Z7PC435F7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DrinkWellWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DrinkWellWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hilalNisanci.DrinkWell.DrinkWellWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9A234E862D8AECD40020FBC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = DrinkWellWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Z7PC435F7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DrinkWellWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DrinkWellWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = hilalNisanci.DrinkWell.DrinkWellWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		9A92090E2D89FB0600C4A4DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -337,6 +555,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -393,11 +612,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DrinkWell/DrinkWell.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DrinkWell/Preview Content\"";
+				DEVELOPMENT_TEAM = 7Z7PC435F7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DrinkWell/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DrinkWell;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -410,6 +634,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = hilalNisanci.DrinkWell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -421,11 +646,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DrinkWell/DrinkWell.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DrinkWell/Preview Content\"";
+				DEVELOPMENT_TEAM = 7Z7PC435F7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DrinkWell/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = DrinkWell;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -438,6 +668,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = hilalNisanci.DrinkWell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -515,6 +746,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9A234E882D8AECD40020FBC9 /* Build configuration list for PBXNativeTarget "DrinkWellWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A234E852D8AECD40020FBC9 /* Debug */,
+				9A234E862D8AECD40020FBC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9A9208E52D89FB0500C4A4DA /* Build configuration list for PBXProject "DrinkWell" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

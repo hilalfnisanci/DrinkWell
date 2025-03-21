@@ -1,0 +1,148 @@
+/* 
+  Localizable.strings
+  DrinkWell
+
+  Created by Hilal on 20.03.2025.
+  
+*/
+// OnboardingView
+"welcome_title" = "Welcome to DrinkWell";
+"welcome_description" = "Your personal water tracking app for a healthy life";
+"personal_info_title" = "Personal Information";
+"personal_info_description" = "Please enter your information below:";
+"name_label" = "Name";
+"height_label" = "Height";
+"weight_label" = "Weight";
+"cm_unit" = "cm";
+"kg_unit" = "kg";
+"next_button" = "Next";
+"back_button" = "Back";
+"start_button" = "Start";
+"great_title" = "Great!";
+"info_saved_message" = "Your information has been saved. You can now start using DrinkWell.";
+"daily_recommendation" = "Recommended daily water intake:";
+
+// ContentView
+"app_name" = "DrinkWell";
+"target_label" = "Target:";
+"drunk_label" = "Drunk";
+"remaining_label" = "Remaining";
+"add_water_button" = "Add Water";
+"today_records" = "Today's Records";
+
+// SettingsView
+"settings_title" = "Settings";
+"water_intake_goal" = "Water Intake Goal";
+"daily_target" = "Daily Target";
+"suggested_amount" = "Suggested:";
+"apply_suggestion" = "Apply Suggestion";
+"notifications_section" = "Notifications";
+"enable_notifications" = "Enable Notifications";
+"frequency_label" = "Frequency: every %d hours";
+"profile_section" = "Profile Information";
+"username_label" = "Username";
+"appearance_section" = "Appearance";
+"dark_mode" = "Dark Mode";
+"units_section" = "Units";
+"use_metric" = "Use Metric System (ml/kg/cm)";
+"about_section" = "About";
+"app_version" = "App Version";
+"privacy_policy" = "Privacy Policy";
+"terms_of_use" = "Terms of Use";
+"language_section" = "Language";
+
+// AddWaterView
+"amount_header" = "Amount (ml)";
+"note_header" = "Note";
+"optional_note" = "Optional note";
+"add_water_title" = "Add Water";
+"cancel_button" = "Cancel";
+"add_button" = "Add";
+
+// ContentView Tabs
+"home_tab" = "Home";
+"stats_tab" = "Statistics";
+"settings_tab" = "Settings";
+
+// OnboardingView Additional
+"name_placeholder" = "Enter your name";
+"height_placeholder" = "Enter height";
+"weight_placeholder" = "Enter weight";
+"done_button" = "Done";
+
+// SettingsView Additional
+"notification_permission_denied_title" = "Notification Permission Denied";
+"notification_permission_message" = "To receive water drinking reminders, you need to enable notifications in device settings.";
+"open_settings" = "Open Settings";
+"inch_unit" = "in";
+"lb_unit" = "lb";
+
+// StatsView
+"last_seven_days" = "Last 7 Days";
+"daily_water_intake" = "Daily water intake";
+"monthly_view" = "Monthly View";
+"daily_water_intake_and_average" = "Daily water intake and average";
+"day_label" = "Day";
+"amount_label" = "Amount";
+"average_label" = "Average";
+"target_label" = "Target";
+"daily_intake" = "Daily Intake";
+"monthly_average" = "Monthly Average";
+"monthly_average_title" = "Monthly Average";
+"highest_intake" = "Highest";
+"lowest_intake" = "Lowest";
+"target_reached" = "Target Reached";
+"days_count" = "%d days";
+"stats_title" = "Statistics";
+
+// Chart Legend Labels
+"legend_daily_intake" = "Daily Intake";
+"legend_monthly_average" = "Monthly Average";
+"legend_target" = "Target";
+
+// Chart Axis Labels
+"chart_day_axis" = "Day";
+"chart_amount_axis" = "Amount";
+
+// NotificationManager
+"notification_title" = "Time to Drink Water!";
+"notification_message_1" = "Drink some water to reach your daily goal.";
+"notification_message_2" = "Hydration is crucial for staying healthy!";
+"notification_message_3" = "Drinking water boosts your metabolism.";
+"notification_message_4" = "A glass of water makes you feel more energetic.";
+"drank_action" = "I Drank";
+"test_notification_title" = "Test Notification";
+"test_notification_message" = "This is a test notification. Notifications are working!";
+
+// Debug Messages
+"debug_no_permission" = "No notification permission, cannot schedule notifications";
+"debug_notification_hours" = "Notification hours:";
+"debug_notification_scheduled" = "Notification successfully scheduled: hour";
+"debug_notification_failed" = "Notification could not be scheduled:";
+"debug_notifications_cancelled" = "All notifications cancelled";
+"debug_notification_cancelled" = "Notification cancelled with identifier:";
+"debug_badge_reset_error" = "Badge reset error:";
+"debug_user_selected_drank" = "User selected 'I Drank' action";
+
+// WaterViewModel Errors
+"error_load_failed" = "Failed to load water intakes";
+"error_save_failed" = "Failed to save water intake";
+"error_delete_failed" = "Failed to delete water intake";
+
+// DataController Errors
+"error_container_url_not_found" = "Container URL not found";
+"error_model_container_init" = "Failed to initialize ModelContainer";
+
+// Widget
+"widget_display_name" = "Water Tracking";
+"widget_description" = "Track your daily water intake";
+"widget_consumed" = "Consumed";
+"widget_goal" = "Goal";
+"widget_remaining" = "Remaining";
+
+// Widget Control
+"widget_start_timer" = "Start Timer";
+"widget_timer_on" = "On";
+"widget_timer_off" = "Off";
+"widget_timer" = "Timer";
+"widget_timer_description" = "A control that runs a timer.";
