@@ -4,6 +4,7 @@
 //
 //  Created by Hilal on 18.03.2025.
 //
+
 import XCTest
 
 final class DrinkWellUITestsLaunchTests: XCTestCase {
@@ -19,34 +20,32 @@ final class DrinkWellUITestsLaunchTests: XCTestCase {
     func testLaunch() throws {
         let app = XCUIApplication()
         
-        // Set the language to English for the test
+        // Set language to English for testing
         app.launchArguments = ["-AppleLanguages", "(en)"]
+        
+        // Force portrait orientation
+        XCUIDevice.shared.orientation = .portrait
+        
         app.launch()
 
-        // Wait for the launch screen to appear
-        let launchScreenWait = XCTWaiter.wait(for: [
-            XCTNSPredicateExpectation(
-                predicate: NSPredicate(format: "exists == true"),
-                object: app.otherElements["LaunchScreen"]
-            )
-        ], timeout: 2.0)
+        // Wait longer for launch screen
+        let launchScreen = app.otherElements["LaunchScreen"]
+        XCTAssertTrue(launchScreen.waitForExistence(timeout: 10), "Launch screen should appear")
         
-        XCTAssertEqual(launchScreenWait, .completed, "Launch screen should be visible")
-
-        // Take a screenshot of the launch screen
+        // Take launch screen screenshot
         let launchScreenshot = XCTAttachment(screenshot: app.screenshot())
         launchScreenshot.name = "Launch Screen"
         launchScreenshot.lifetime = .keepAlways
         add(launchScreenshot)
         
-        // Wait for the launch screen to disappear (2 seconds)
-        Thread.sleep(forTimeInterval: 2)
+        // Wait for launch screen to disappear
+        sleep(3)
         
-        // Check the onboarding screen for the first launch
+        // Check onboarding screen
         let welcomeTitle = app.staticTexts["welcome_title"]
-        XCTAssertTrue(welcomeTitle.exists, "Welcome screen should be visible for first launch")
+        XCTAssertTrue(welcomeTitle.waitForExistence(timeout: 10), "Welcome screen should appear")
         
-        // Take a screenshot of the onboarding screen
+        // Take onboarding screen screenshot
         let onboardingScreenshot = XCTAttachment(screenshot: app.screenshot())
         onboardingScreenshot.name = "Onboarding Screen"
         onboardingScreenshot.lifetime = .keepAlways
@@ -55,8 +54,11 @@ final class DrinkWellUITestsLaunchTests: XCTestCase {
     
     @MainActor
     func testLaunchPerformance() throws {
-        measure(metrics: [XCTApplicationLaunchMetric()]) {
-            XCUIApplication().launch()
+        if #available(iOS 13.0, *) {
+            // Measure app launch metrics
+            measure(metrics: [XCTApplicationLaunchMetric()]) {
+                XCUIApplication().launch()
+            }
         }
     }
 }

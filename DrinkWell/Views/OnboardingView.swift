@@ -5,8 +5,8 @@ struct OnboardingView: View {
     @Binding var isFirstLaunch: Bool
     
     @State private var username = ""
-    @State private var height: Double = 170
-    @State private var weight: Double = 70
+    @State private var height: Double? = nil
+    @State private var weight: Double? = nil
     @State private var currentPage = 0
     @State private var selectedLanguage = UserDefaults.standard.string(forKey: "selectedLanguage") ?? "en"
     @State private var refreshView = false
@@ -43,8 +43,8 @@ struct OnboardingView: View {
             let isUsernameValid = !username.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && username.count >= 2
             
             // Height and weight must be within reasonable values
-            let isHeightValid = height >= 120 && height <= 220
-            let isWeightValid = weight >= 40 && weight <= 200
+            let isHeightValid = height != nil && height! >= 120 && height! <= 220
+            let isWeightValid = weight != nil && weight! >= 40 && weight! <= 200
             
             return isUsernameValid && isHeightValid && isWeightValid
         }
@@ -79,6 +79,7 @@ struct OnboardingView: View {
                     
                     Text("welcome_title".localized)
                         .font(.title.bold())
+                        .accessibilityIdentifier("welcome_title")
                     
                     Text("welcome_description".localized)
                         .multilineTextAlignment(.center)
@@ -185,7 +186,7 @@ struct OnboardingView: View {
                         .fontWeight(.medium)
                         .padding(.top)
                     
-                    Text("\(Int(weight * 35)) ml")
+                    Text("\(Int((weight ?? 70) * 35)) ml")
                         .font(.title2.bold())
                         .foregroundColor(.blue)
                 }
@@ -223,7 +224,11 @@ struct OnboardingView: View {
                         preferences.username = username
                         preferences.userHeight = height
                         preferences.userWeight = weight
-                        preferences.dailyGoal = weight * 35 // Weight x 35 ml
+                        if let userWeight = weight {
+                            preferences.dailyGoal = userWeight * 35 // Weight x 35 ml
+                        } else {
+                            preferences.dailyGoal = 2500
+                        }
                         UserDefaults.standard.set(selectedLanguage, forKey: "selectedLanguage")
                         UserDefaults.standard.synchronize()
 

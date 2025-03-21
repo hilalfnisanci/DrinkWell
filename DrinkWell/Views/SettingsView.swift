@@ -18,9 +18,31 @@ struct SettingsView: View {
     @State private var showPermissionAlert = false
     @State private var showSettingsAlert = false
     @State var selectedLanguage: String = UserDefaults.standard.string(forKey: "selectedLanguage") ?? "en"
+    @Binding var selectedTab: Int 
+
     // Unit conversions
     private var goalInOz: Double {
         preferences.useMetricSystem ? preferences.dailyGoal : preferences.dailyGoal * 0.033814
+    }
+
+    private func changeLanguage(to languageCode: String) {
+        selectedLanguage = languageCode
+        
+        UserDefaults.standard.set(languageCode, forKey: "selectedLanguage")
+        UserDefaults.standard.set([languageCode], forKey: "AppleLanguages")
+        UserDefaults.standard.synchronize()
+        
+        if let bundlePath = Bundle.main.path(forResource: languageCode, ofType: "lproj"),
+           let bundle = Bundle(path: bundlePath) {
+            LocalizationManager.shared.currentBundle = bundle
+        }
+        
+        NotificationCenter.default.post(name: Notification.Name("LanguageChanged"), object: nil)
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController = UIHostingController(rootView: ContentView(selectedTab: $selectedTab))
+        }
     }
     
     var body: some View {
@@ -148,9 +170,7 @@ struct SettingsView: View {
                     }
                     .pickerStyle(.segmented)
                     .onChange(of: selectedLanguage) { _, newValue in
-                        UserDefaults.standard.set(newValue, forKey: "selectedLanguage")
-                        UserDefaults.standard.synchronize()
-                        NotificationCenter.default.post(name: Notification.Name("LanguageChanged"), object: nil)
+                        changeLanguage(to: newValue)
                     }
                 }
                 

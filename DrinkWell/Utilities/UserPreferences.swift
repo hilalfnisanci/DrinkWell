@@ -70,15 +70,23 @@ class UserPreferences: ObservableObject {
         }
     }
     
-    @Published var userHeight: Double {
+    @Published var userHeight: Double? {
         didSet {
-            UserDefaults.standard.set(userHeight, forKey: Keys.userHeight.rawValue)
+            if let height = userHeight {
+                UserDefaults.standard.set(height, forKey: Keys.userHeight.rawValue)
+            } else {
+                UserDefaults.standard.removeObject(forKey: Keys.userHeight.rawValue)
+            }
         }
     }
     
-    @Published var userWeight: Double {
+    @Published var userWeight: Double? {
         didSet {
-            UserDefaults.standard.set(userWeight, forKey: Keys.userWeight.rawValue)
+            if let weight = userWeight {
+                UserDefaults.standard.set(weight, forKey: Keys.userWeight.rawValue)
+            } else {
+                UserDefaults.standard.removeObject(forKey: Keys.userWeight.rawValue)
+            }
         }
     }
     
@@ -106,8 +114,8 @@ class UserPreferences: ObservableObject {
         self.isDarkMode = false
         self.useMetricSystem = true
         self.username = ""
-        self.userHeight = 170
-        self.userWeight = 70
+        self.userHeight = nil
+        self.userWeight = nil
         self.selectedLanguage = UserDefaults.standard.string(forKey: "selectedLanguage") ?? "en"
         
         // Load values from UserDefaults
@@ -154,8 +162,8 @@ class UserPreferences: ObservableObject {
         isDarkMode = false
         useMetricSystem = true
         username = ""
-        userHeight = 170
-        userWeight = 70
+        userHeight = nil
+        userWeight = nil
     }
     
     // Convert measurements during unit change
@@ -163,22 +171,38 @@ class UserPreferences: ObservableObject {
         if toMetric {
             // Convert from imperial to metric
             dailyGoal = dailyGoal * 29.5735 // oz to ml
-            userHeight = userHeight * 2.54 // inches to cm
-            userWeight = userWeight * 0.453592 // pounds to kg
+            
+            if let height = userHeight {
+                userHeight = height * 2.54 // inches to cm
+            }
+            
+            if let weight = userWeight {
+                userWeight = weight * 0.453592 // pounds to kg
+            }
         } else {
             // Convert from metric to imperial
             dailyGoal = dailyGoal * 0.033814 // ml to oz
-            userHeight = userHeight / 2.54 // cm to inches
-            userWeight = userWeight / 0.453592 // kg to pounds
+            
+            if let height = userHeight {
+                userHeight = height / 2.54 // cm to inches
+            }
+            
+            if let weight = userWeight {
+                userWeight = weight / 0.453592 // kg to pounds
+            }
         }
     }
     
     // Calculate recommended daily water intake
     var suggestedWaterIntake: Double {
-        if useMetricSystem {
-            return userWeight * 35 // ml (based on kg)
+        if let weight = userWeight {
+            if useMetricSystem {
+                return weight * 35 // ml (based on kg)
+            } else {
+                return weight * 0.5 // oz (based on pounds)
+            }
         } else {
-            return userWeight * 0.5 // oz (based on pounds)
+            return useMetricSystem ? 2500 : 84.5 // Varsayılan değerler (ml veya oz)
         }
     }
 }

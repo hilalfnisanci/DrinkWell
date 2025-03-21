@@ -151,7 +151,7 @@ struct ContentView: View {
                 .tag(1)
             
             // SETTINGS PAGE
-            SettingsView()
+            SettingsView(selectedTab: $selectedTab)
                 .tabItem {
                     Label("settings_tab".localized, systemImage: "gearshape.fill")
                 }
