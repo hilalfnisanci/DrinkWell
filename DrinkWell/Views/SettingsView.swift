@@ -183,8 +183,8 @@ struct SettingsView: View {
                             .foregroundColor(.secondary)
                     }
                     
-                    Link("privacy_policy".localized, destination: URL(string: "https://hilalnisanci.github.io/DrinkWell/privacy.html")!)
-                    Link("terms_of_use".localized, destination: URL(string: "https://hilalnisanci.github.io/DrinkWell/terms.html")!)
+                    Link("privacy_policy".localized, destination: URL(string: "https://hilalfnisanci.github.io/DrinkWell/privacy.html")!)
+                    Link("terms_of_use".localized, destination: URL(string: "https://hilalfnisanci.github.io/DrinkWell/terms.html")!)
                 }
             }
             .navigationTitle("settings_title".localized)
