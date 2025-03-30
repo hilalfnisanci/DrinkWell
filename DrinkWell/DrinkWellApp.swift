@@ -7,10 +7,21 @@
 
 import SwiftUI
 import SwiftData
-import UserNotifications 
+import UserNotifications
+import GoogleMobileAds 
+
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    func application(_ application: UIApplication,
+                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        MobileAds.shared.start(completionHandler: nil)
+        return true
+    }
+}
 
 @main
 struct DrinkWellApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     @StateObject private var preferences = UserPreferences.shared
     @State private var isLaunchScreenShowing = true
     @AppStorage("isFirstLaunch") private var isFirstLaunch = true

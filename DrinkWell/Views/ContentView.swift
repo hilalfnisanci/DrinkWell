@@ -19,7 +19,7 @@ struct ContentView: View {
         TabView(selection: $selectedTab) {
             // MAIN SCREEN
             NavigationStack {
-                VStack(spacing: 20) {
+                VStack(spacing: 0) {
                     // Progress indicator
                     ZStack {
                         Circle()
@@ -108,7 +108,16 @@ struct ContentView: View {
                         }
                     }
                     .listStyle(InsetGroupedListStyle())
+                    .background(Color(UIColor.systemBackground))
+
+                    Spacer(minLength: 0)
+
+                    // Banner Ad
+                    BannerAdView(adUnitID: "ca-app-pub-3940256099942544/2435281174")
+                        .frame(height: 50)
+                        .background(Color(UIColor.systemBackground))
                 }
+                .background(Color(UIColor.systemBackground))
                 .navigationTitle("app_name".localized)
                 .sheet(isPresented: $showingAddSheet) {
                     AddWaterView(isPresented: $showingAddSheet) { amount, note in
