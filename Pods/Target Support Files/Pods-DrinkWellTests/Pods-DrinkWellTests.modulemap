@@ -1,6 +1,0 @@
-framework module Pods_DrinkWellTests {
-  umbrella header "Pods-DrinkWellTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
