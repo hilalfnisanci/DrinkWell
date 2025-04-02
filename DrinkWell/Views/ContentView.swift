@@ -23,13 +23,13 @@ struct ContentView: View {
                     // Progress indicator
                     ZStack {
                         Circle()
-                            .stroke(lineWidth: 15)
+                            .stroke(lineWidth: 12)
                             .opacity(0.3)
                             .foregroundColor(.blue)
                         
                         Circle()
                             .trim(from: 0.0, to: CGFloat(viewModel.progress))
-                            .stroke(style: StrokeStyle(lineWidth: 15, lineCap: .round))
+                            .stroke(style: StrokeStyle(lineWidth: 12, lineCap: .round))
                             .foregroundColor(.blue)
                             .rotationEffect(.degrees(-90))
                             .animation(.easeInOut, value: viewModel.progress)
@@ -39,7 +39,7 @@ struct ContentView: View {
                             Text(preferences.useMetricSystem ? 
                                 "\(Int(viewModel.todaysTotal)) ml" :
                                 String(format: "%.1f oz", viewModel.todaysTotal * 0.033814))
-                                .font(.system(size: 32, weight: .bold))
+                                .font(.system(size: 30, weight: .bold))
                             
                             Text(preferences.useMetricSystem ?
                                 String(format: "target_label".localized + " %d ml", Int(viewModel.dailyGoal)) :
@@ -52,11 +52,11 @@ struct ContentView: View {
                                 .foregroundColor(.blue)
                         }
                     }
-                    .frame(height: 200)
-                    .padding()
+                    .frame(height: 170)
+                    
                     
                     // Info panel
-                    HStack(spacing: 20) {
+                    HStack(spacing: 25) {
                         InfoCard(
                             title: "drunk_label".localized,
                             value: preferences.useMetricSystem ?
@@ -65,6 +65,7 @@ struct ContentView: View {
                             systemImage: "drop.fill",
                             color: .blue
                         )
+                        .frame(height: 70)
                         
                         InfoCard(
                             title: "remaining_label".localized,
@@ -74,8 +75,10 @@ struct ContentView: View {
                             systemImage: "gauge",
                             color: .orange
                         )
+                        .frame(height: 70)
                     }
                     .padding(.horizontal)
+                    .padding(.vertical, 12)
                     
                     // Add water button
                     Button(action: {
@@ -91,6 +94,7 @@ struct ContentView: View {
                     }
                     .accessibilityIdentifier("add_water_button")
                     .padding(.horizontal)
+                    .padding(.bottom, 12)
                     
                     // Daily records list
                     List {
