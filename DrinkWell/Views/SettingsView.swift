@@ -19,6 +19,12 @@ struct SettingsView: View {
     @State private var showSettingsAlert = false
     @State var selectedLanguage: String = UserDefaults.standard.string(forKey: "selectedLanguage") ?? "en"
     @Binding var selectedTab: Int 
+    
+    @FocusState private var focusedField: Field?
+    
+    private enum Field {
+        case username, height, weight
+    }
 
     // Unit conversions
     private var goalInOz: Double {
@@ -125,6 +131,11 @@ struct SettingsView: View {
                         Spacer()
                         TextField("name_placeholder".localized, text: $preferences.username)
                             .multilineTextAlignment(.trailing)
+                            .focused($focusedField, equals: .username)
+                            .submitLabel(.next)
+                            .onSubmit {
+                                focusedField = .height
+                            }
                     }
                     
                     HStack {
@@ -133,6 +144,11 @@ struct SettingsView: View {
                         TextField("height_placeholder".localized, value: $preferences.userHeight, format: .number)
                             .keyboardType(.decimalPad)
                             .multilineTextAlignment(.trailing)
+                            .focused($focusedField, equals: .height)
+                            .submitLabel(.next)
+                            .onSubmit {
+                                focusedField = .weight
+                            }
                         Text(preferences.useMetricSystem ? "cm_unit".localized : "inch_unit".localized)
                             .foregroundColor(.secondary)
                     }
@@ -143,6 +159,11 @@ struct SettingsView: View {
                         TextField("weight_placeholder".localized, value: $preferences.userWeight, format: .number)
                             .keyboardType(.decimalPad)
                             .multilineTextAlignment(.trailing)
+                            .focused($focusedField, equals: .weight)
+                            .submitLabel(.done)
+                            .onSubmit {
+                                hideKeyboard()
+                            }
                         Text(preferences.useMetricSystem ? "kg_unit".localized : "lb_unit".localized)
                             .foregroundColor(.secondary)
                     }
@@ -188,7 +209,24 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("settings_title".localized)
+            .toolbar {
+                ToolbarItem(placement: .keyboard) {
+                    HStack {
+                        Spacer()
+                        Button("done_button".localized) {
+                            hideKeyboard()
+                        }
+                    }
+                }
+            }
+            .onTapGesture {
+                hideKeyboard()
+            }
         }
+    }
+    
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
