@@ -117,7 +117,7 @@ struct ContentView: View {
                     Spacer(minLength: 0)
 
                     // Banner Ad
-                    BannerAdView(adUnitID: "ca-app-pub-2543228431265950/5767497268")
+                    BannerAdView(adUnitID: "ca-app-pub-3940256099942544/2435281174")
                         .frame(height: 50)
                         .background(Color(UIColor.systemBackground))
                 }
