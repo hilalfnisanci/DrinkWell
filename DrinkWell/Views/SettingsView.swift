@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import SafariServices
 
 struct SettingsView: View {
     
@@ -22,6 +23,10 @@ struct SettingsView: View {
     
     @FocusState private var focusedField: Field?
     
+    // Safari görünümü için state değişkeni
+    @State private var showingSafariView = false
+    @State private var urlToLoad: URL? = nil
+    
     private enum Field {
         case username, height, weight
     }
@@ -29,6 +34,14 @@ struct SettingsView: View {
     // Unit conversions
     private var goalInOz: Double {
         preferences.useMetricSystem ? preferences.dailyGoal : preferences.dailyGoal * 0.033814
+    }
+    
+    // Web sayfasını açmak için güvenilir fonksiyon
+    private func openURL(_ urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        
+        // iOS 14 ve üzeri için, UIApplication.shared.open kullanılır - daha güvenilir
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 
     private func changeLanguage(to languageCode: String) {
@@ -204,24 +217,48 @@ struct SettingsView: View {
                             .foregroundColor(.secondary)
                     }
                     
-                    Link("privacy_policy".localized, destination: URL(string: "https://hilalfnisanci.github.io/DrinkWell/privacy.html")!)
-                    Link("terms_of_use".localized, destination: URL(string: "https://hilalfnisanci.github.io/DrinkWell/terms.html")!)
-                }
-            }
-            .navigationTitle("settings_title".localized)
-            .toolbar {
-                ToolbarItem(placement: .keyboard) {
-                    HStack {
-                        Spacer()
-                        Button("done_button".localized) {
-                            hideKeyboard()
+                    // Dokunma alanını genişlet ve onTapGesture kullan - daha güvenilir
+                    ZStack {
+                        Rectangle()
+                            .foregroundColor(.clear)
+                            .contentShape(Rectangle()) // Tüm alanı tıklanabilir yap
+                        
+                        HStack {
+                            Text("privacy_policy".localized)
+                                .foregroundColor(.blue)
+                            Spacer()
+                            Image(systemName: "arrow.up.forward.app")
+                                .foregroundColor(.blue)
+                        }
+                    }
+                    .onTapGesture {
+                        // Kısa gecikme ekleyerek potansiyel çakışmaları önle
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            openURL("https://hilalfnisanci.github.io/DrinkWell/privacy")
+                        }
+                    }
+                    
+                    ZStack {
+                        Rectangle()
+                            .foregroundColor(.clear)
+                            .contentShape(Rectangle()) // Tüm alanı tıklanabilir yap
+                        
+                        HStack {
+                            Text("terms_of_use".localized)
+                                .foregroundColor(.blue)
+                            Spacer()
+                            Image(systemName: "arrow.up.forward.app")
+                                .foregroundColor(.blue)
+                        }
+                    }
+                    .onTapGesture {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            openURL("https://hilalfnisanci.github.io/DrinkWell/terms")
                         }
                     }
                 }
             }
-            .onTapGesture {
-                hideKeyboard()
-            }
+            .navigationTitle("settings_title".localized)
         }
     }
     
