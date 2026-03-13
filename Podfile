@@ -25,3 +25,19 @@ target 'DrinkWellWidgetExtension' do
   # Pods for DrinkWellWidgetExtension
 
 end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings.delete('ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES')
+      config.build_settings.delete('EMBEDDED_CONTENT_CONTAINS_SWIFT')
+    end
+  end
+
+  Dir.glob('Pods/Target Support Files/**/*.xcconfig').each do |xcconfig_path|
+    content = File.read(xcconfig_path)
+    content = content.gsub(/^ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES\s*=\s*.*\n/, '')
+    content = content.gsub(/^EMBEDDED_CONTENT_CONTAINS_SWIFT\s*=\s*.*\n/, '')
+    File.write(xcconfig_path, content)
+  end
+end
