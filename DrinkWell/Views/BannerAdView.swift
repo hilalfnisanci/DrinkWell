@@ -57,27 +57,39 @@ struct BannerAdView: UIViewRepresentable {
         
         // MARK: - BannerViewDelegate
         func bannerViewDidReceiveAd(_ bannerView: BannerView) {
+            #if DEBUG
             print("Banner ad successfully loaded")
+            #endif
         }
         
         func bannerView(_ bannerView: BannerView, didFailToReceiveAdWithError error: Error) {
+            #if DEBUG
             print("Failed to load banner ad: \(error.localizedDescription)")
+            #endif
         }
         
         func bannerViewDidRecordImpression(_ bannerView: BannerView) {
+            #if DEBUG
             print("Banner impression recorded")
+            #endif
         }
         
         func bannerViewWillPresentScreen(_ bannerView: BannerView) {
+            #if DEBUG
             print("Banner will present full-screen content")
+            #endif
         }
         
         func bannerViewWillDismissScreen(_ bannerView: BannerView) {
+            #if DEBUG
             print("Banner will dismiss full-screen content")
+            #endif
         }
         
         func bannerViewDidDismissScreen(_ bannerView: BannerView) {
+            #if DEBUG
             print("Banner dismissed full-screen content")
+            #endif
         }
     }
 }

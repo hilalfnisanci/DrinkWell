@@ -17,6 +17,7 @@ This Privacy Policy explains how DrinkWell ("we", "our", or "us") collects, uses
 #### Automatically Collected Information
 - **Device Information**: Device type, operating system version
 - **Usage Statistics**: App usage patterns and preferences
+- **Advertising Data**: When ads are shown, advertising-related identifiers and interaction data may be processed by our ad partner (Google AdMob)
 
 ### How We Use Your Information
 - To provide and maintain the DrinkWell service
@@ -28,7 +29,8 @@ This Privacy Policy explains how DrinkWell ("we", "our", or "us") collects, uses
 All your personal data is stored locally on your device. DrinkWell does not transmit or store your personal information on external servers.
 
 ### Data Sharing
-We do not share your personal information with third parties.
+We do not sell your personal information.  
+If ads are enabled, limited data required to serve and measure ads may be processed by Google AdMob under Google's policies.
 
 ### Your Choices
 - You can edit or delete your profile information at any time
@@ -59,6 +61,7 @@ Bu Gizlilik Politikası, DrinkWell ("biz", "bizim" veya "bize") olarak mobil uyg
 #### Otomatik Olarak Toplanan Bilgiler
 - **Cihaz Bilgileri**: Cihaz türü, işletim sistemi sürümü
 - **Kullanım İstatistikleri**: Uygulama kullanım şekilleri ve tercihler
+- **Reklam Verileri**: Reklamlar gösterildiğinde, reklam sunumu ve ölçümü için reklamla ilgili tanımlayıcılar ve etkileşim verileri reklam iş ortağımız (Google AdMob) tarafından işlenebilir
 
 ### Bilgilerinizi Nasıl Kullanıyoruz
 - DrinkWell hizmetini sağlamak ve sürdürmek için
@@ -70,7 +73,8 @@ Bu Gizlilik Politikası, DrinkWell ("biz", "bizim" veya "bize") olarak mobil uyg
 Tüm kişisel verileriniz yerel olarak cihazınızda saklanır. DrinkWell, kişisel bilgilerinizi harici sunuculara aktarmaz veya saklamaz.
 
 ### Veri Paylaşımı
-Kişisel bilgilerinizi üçüncü taraflarla paylaşmıyoruz.
+Kişisel verilerinizi satmıyoruz.  
+Reklamlar etkinse, reklam sunumu ve ölçümü için gereken sınırlı veriler Google AdMob tarafından Google politikaları kapsamında işlenebilir.
 
 ### Seçimleriniz
 - Profil bilgilerinizi istediğiniz zaman düzenleyebilir veya silebilirsiniz

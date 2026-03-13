@@ -116,10 +116,11 @@ struct ContentView: View {
 
                     Spacer(minLength: 0)
 
-                    // Banner Ad
-                    BannerAdView(adUnitID: "ca-app-pub-3940256099942544/2435281174")
-                        .frame(height: 50)
-                        .background(Color(UIColor.systemBackground))
+                    if let bannerAdUnitID = AdConfiguration.bannerAdUnitID {
+                        BannerAdView(adUnitID: bannerAdUnitID)
+                            .frame(height: 50)
+                            .background(Color(UIColor.systemBackground))
+                    }
                 }
                 .background(Color(UIColor.systemBackground))
                 .navigationTitle("app_name".localized)

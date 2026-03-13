@@ -35,6 +35,12 @@ struct SettingsView: View {
     private var goalInOz: Double {
         preferences.useMetricSystem ? preferences.dailyGoal : preferences.dailyGoal * 0.033814
     }
+
+    private var appVersionDisplay: String {
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "-"
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "-"
+        return "\(version) (\(build))"
+    }
     
     // Web sayfasını açmak için güvenilir fonksiyon
     private func openURL(_ urlString: String) {
@@ -213,7 +219,7 @@ struct SettingsView: View {
                     HStack {
                         Text("app_version".localized)
                         Spacer()
-                        Text("1.0.0")
+                        Text(appVersionDisplay)
                             .foregroundColor(.secondary)
                     }
                     
@@ -266,4 +272,3 @@ struct SettingsView: View {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
-

@@ -21,7 +21,7 @@ By downloading, installing, or using the DrinkWell application ("App"), you agre
 The DrinkWell App is not a medical device and is not intended to diagnose, treat, cure, or prevent any disease or health condition. The information provided through the App is for informational purposes only.
 
 ### User Accounts and Data
-- You are responsible for maintaining the confidentiality of any login information
+- DrinkWell does not require account creation
 - All your personal data is stored locally on your device
 - We do not claim ownership of your personal data
 
@@ -59,7 +59,7 @@ DrinkWell uygulamasını ("Uygulama") indirerek, yükleyerek veya kullanarak, bu
 DrinkWell Uygulaması bir tıbbi cihaz değildir ve herhangi bir hastalığı veya sağlık durumunu teşhis etmek, tedavi etmek, iyileştirmek veya önlemek için tasarlanmamıştır. Uygulama aracılığıyla sağlanan bilgiler yalnızca bilgilendirme amaçlıdır.
 
 ### Kullanıcı Hesapları ve Veriler
-- Herhangi bir giriş bilgisinin gizliliğini korumaktan siz sorumlusunuz
+- DrinkWell kullanımı için hesap oluşturmanız gerekmez
 - Tüm kişisel verileriniz yerel olarak cihazınızda saklanır
 - Kişisel verileriniz üzerinde herhangi bir mülkiyet hakkı talep etmiyoruz
 

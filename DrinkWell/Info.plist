@@ -15,10 +15,10 @@
 			</array>
 		</dict>
 	</array>
-	<key>NSExtensionManuallyInstallable</key>
-    <true/>
     <key>GADApplicationIdentifier</key>
     <string>ca-app-pub-2543228431265950~1319517185</string>
+    <key>GADBannerAdUnitID</key>
+    <string></string>
     <key>SKAdNetworkItems</key>
     <array>
       <dict>
