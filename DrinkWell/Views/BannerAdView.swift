@@ -27,7 +27,7 @@ struct BannerAdView: UIViewRepresentable {
     
     class Coordinator: NSObject, BannerViewDelegate {
         private var parent: BannerAdView
-        private var hasLoaded = false
+        private var isRequestInFlight = false
         
         private(set) lazy var bannerView: BannerView = {
             let banner = BannerView()
@@ -43,31 +43,46 @@ struct BannerAdView: UIViewRepresentable {
         }
 
         func updateBanner(rootViewController: UIViewController?) {
-            if bannerView.rootViewController == nil, let rootViewController {
-                bannerView.rootViewController = rootViewController
+            if bannerView.rootViewController == nil {
+                bannerView.rootViewController = rootViewController ?? currentRootViewController()
             }
 
             if bannerView.adUnitID != parent.adUnitID {
                 bannerView.adUnitID = parent.adUnitID
             }
 
-            if !hasLoaded, bannerView.rootViewController != nil {
+            if !isRequestInFlight, bannerView.rootViewController != nil {
+                isRequestInFlight = true
                 bannerView.load(Request())
-                hasLoaded = true
             }
+        }
+
+        private func currentRootViewController() -> UIViewController? {
+            UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap(\.windows)
+                .first(where: { $0.isKeyWindow })?
+                .rootViewController
         }
         
         // MARK: - BannerViewDelegate
         func bannerViewDidReceiveAd(_ bannerView: BannerView) {
+            isRequestInFlight = false
             #if DEBUG
             print("Banner ad successfully loaded")
             #endif
         }
         
         func bannerView(_ bannerView: BannerView, didFailToReceiveAdWithError error: Error) {
+            isRequestInFlight = false
             #if DEBUG
             print("Failed to load banner ad: \(error.localizedDescription)")
             #endif
+            // Retry once after a short delay when placement has no immediate fill.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                guard let self else { return }
+                self.updateBanner(rootViewController: self.bannerView.rootViewController)
+            }
         }
         
         func bannerViewDidRecordImpression(_ bannerView: BannerView) {
