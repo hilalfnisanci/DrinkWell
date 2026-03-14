@@ -24,13 +24,13 @@ struct ContentView: View {
                         // Progress indicator
                         ZStack {
                             Circle()
-                                .stroke(lineWidth: 12)
+                                .stroke(lineWidth: 10)
                                 .opacity(0.3)
                                 .foregroundColor(.blue)
                             
                             Circle()
                                 .trim(from: 0.0, to: CGFloat(viewModel.progress))
-                                .stroke(style: StrokeStyle(lineWidth: 12, lineCap: .round))
+                                .stroke(style: StrokeStyle(lineWidth: 10, lineCap: .round))
                                 .foregroundColor(.blue)
                                 .rotationEffect(.degrees(-90))
                                 .animation(.easeInOut, value: viewModel.progress)
@@ -40,20 +40,20 @@ struct ContentView: View {
                                 Text(preferences.useMetricSystem ? 
                                     "\(Int(viewModel.todaysTotal)) ml" :
                                     String(format: "%.1f oz", viewModel.todaysTotal * 0.033814))
-                                    .font(.system(size: 30, weight: .bold))
+                                    .font(.system(size: 24, weight: .bold))
                                 
                                 Text(preferences.useMetricSystem ?
                                     String(format: "target_label".localized + " %d ml", Int(viewModel.dailyGoal)) :
                                     String(format: "target_label".localized + " %.1f oz", viewModel.dailyGoal * 0.033814))
-                                    .font(.subheadline)
+                                    .font(.footnote)
                                     .foregroundColor(.secondary)
                                 
                                 Text("\(Int(viewModel.progress * 100))%")
-                                    .font(.headline)
+                                    .font(.subheadline.weight(.semibold))
                                     .foregroundColor(.blue)
                             }
                         }
-                        .frame(height: 170)
+                        .frame(height: 145)
                         
                         
                         // Info panel
@@ -117,7 +117,6 @@ struct ContentView: View {
                     }
                     .background(Color(UIColor.systemBackground))
                     .navigationTitle("app_name".localized)
-                    .navigationBarTitleDisplayMode(.inline)
                     .sheet(isPresented: $showingAddSheet) {
                         AddWaterView(isPresented: $showingAddSheet) { amount, note in
                             Task {
