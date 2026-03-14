@@ -117,6 +117,7 @@ struct ContentView: View {
                     }
                     .background(Color(UIColor.systemBackground))
                     .navigationTitle("app_name".localized)
+                    .navigationBarTitleDisplayMode(.inline)
                     .sheet(isPresented: $showingAddSheet) {
                         AddWaterView(isPresented: $showingAddSheet) { amount, note in
                             Task {
