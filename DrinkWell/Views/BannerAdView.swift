@@ -3,9 +3,11 @@ import GoogleMobileAds
 
 struct BannerAdView: UIViewRepresentable {
     let adUnitID: String
+    let availableWidth: CGFloat
     
-    init(adUnitID: String) {
+    init(adUnitID: String, availableWidth: CGFloat) {
         self.adUnitID = adUnitID
+        self.availableWidth = availableWidth
     }
     
     func makeCoordinator() -> Coordinator {
@@ -18,41 +20,46 @@ struct BannerAdView: UIViewRepresentable {
         return bannerView
     }
     
-    func updateUIView(_ uiView: BannerView, context: Context) {}
+    func updateUIView(_ uiView: BannerView, context: Context) {
+        if uiView.rootViewController == nil {
+            uiView.rootViewController = uiView.window?.rootViewController
+        }
+        context.coordinator.updateBanner(width: availableWidth, rootViewController: uiView.window?.rootViewController)
+    }
     
     class Coordinator: NSObject, BannerViewDelegate {
-        let parent: BannerAdView
+        private var parent: BannerAdView
+        private var lastAppliedWidth: CGFloat = 0
         
         private(set) lazy var bannerView: BannerView = {
             let banner = BannerView()
-            
-            // Get screen width for adaptive banner
-            let frame = UIScreen.main.bounds
-            let viewWidth = frame.size.width
-            
-            // Set adaptive banner size
-            banner.adSize = currentOrientationAnchoredAdaptiveBanner(width: viewWidth)
-            
             banner.adUnitID = parent.adUnitID
-            
-            // Get root view controller using modern approach
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let window = windowScene.windows.first {
-                banner.rootViewController = window.rootViewController
-            }
-            
             banner.delegate = self
-            
-            // Load the ad
-            let request = Request()
-            
-            banner.load(request)
-            
             return banner
         }()
         
         init(_ parent: BannerAdView) {
             self.parent = parent
+        }
+
+        func updateBanner(width: CGFloat, rootViewController: UIViewController?) {
+            let validWidth = max(width, 0)
+            guard validWidth > 0 else { return }
+
+            if bannerView.rootViewController == nil, let rootViewController {
+                bannerView.rootViewController = rootViewController
+            }
+
+            if bannerView.adUnitID != parent.adUnitID {
+                bannerView.adUnitID = parent.adUnitID
+            }
+
+            // Reload only when width changes meaningfully to avoid noisy repeated requests.
+            if abs(lastAppliedWidth - validWidth) > 1 {
+                bannerView.adSize = currentOrientationAnchoredAdaptiveBanner(width: validWidth)
+                bannerView.load(Request())
+                lastAppliedWidth = validWidth
+            }
         }
         
         // MARK: - BannerViewDelegate
