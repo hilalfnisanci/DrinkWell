@@ -3,11 +3,9 @@ import GoogleMobileAds
 
 struct BannerAdView: UIViewRepresentable {
     let adUnitID: String
-    let availableWidth: CGFloat
     
-    init(adUnitID: String, availableWidth: CGFloat) {
+    init(adUnitID: String) {
         self.adUnitID = adUnitID
-        self.availableWidth = availableWidth
     }
     
     func makeCoordinator() -> Coordinator {
@@ -24,16 +22,18 @@ struct BannerAdView: UIViewRepresentable {
         if uiView.rootViewController == nil {
             uiView.rootViewController = uiView.window?.rootViewController
         }
-        context.coordinator.updateBanner(width: availableWidth, rootViewController: uiView.window?.rootViewController)
+        context.coordinator.updateBanner(rootViewController: uiView.window?.rootViewController)
     }
     
     class Coordinator: NSObject, BannerViewDelegate {
         private var parent: BannerAdView
-        private var lastAppliedWidth: CGFloat = 0
+        private var hasLoaded = false
         
         private(set) lazy var bannerView: BannerView = {
             let banner = BannerView()
             banner.adUnitID = parent.adUnitID
+            // Keep a compact, classic bottom banner size on iPhone.
+            banner.adSize = AdSizeBanner
             banner.delegate = self
             return banner
         }()
@@ -42,10 +42,7 @@ struct BannerAdView: UIViewRepresentable {
             self.parent = parent
         }
 
-        func updateBanner(width: CGFloat, rootViewController: UIViewController?) {
-            let validWidth = max(width, 0)
-            guard validWidth > 0 else { return }
-
+        func updateBanner(rootViewController: UIViewController?) {
             if bannerView.rootViewController == nil, let rootViewController {
                 bannerView.rootViewController = rootViewController
             }
@@ -54,11 +51,9 @@ struct BannerAdView: UIViewRepresentable {
                 bannerView.adUnitID = parent.adUnitID
             }
 
-            // Reload only when width changes meaningfully to avoid noisy repeated requests.
-            if abs(lastAppliedWidth - validWidth) > 1 {
-                bannerView.adSize = currentOrientationAnchoredAdaptiveBanner(width: validWidth)
+            if !hasLoaded, bannerView.rootViewController != nil {
                 bannerView.load(Request())
-                lastAppliedWidth = validWidth
+                hasLoaded = true
             }
         }
         

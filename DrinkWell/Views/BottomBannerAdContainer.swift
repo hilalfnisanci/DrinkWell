@@ -5,12 +5,7 @@ struct BottomBannerAdContainer: View {
         if let bannerAdUnitID = AdConfiguration.bannerAdUnitID {
             VStack(spacing: 0) {
                 Divider()
-                GeometryReader { proxy in
-                    BannerAdView(
-                        adUnitID: bannerAdUnitID,
-                        availableWidth: proxy.size.width
-                    )
-                }
+                BannerAdView(adUnitID: bannerAdUnitID)
                     .frame(height: 50)
                     .background(Color(UIColor.systemBackground))
             }
