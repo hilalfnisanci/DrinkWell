@@ -145,6 +145,9 @@ struct ContentView: View {
                     }
                 }
             }
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                BottomBannerAdContainer()
+            }
             .tabItem {
                 Label("home_tab".localized, systemImage: "house.fill")
             }
@@ -152,6 +155,9 @@ struct ContentView: View {
             
             // STATISTICS PAGE
             StatsView()
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                    BottomBannerAdContainer()
+                }
                 .tabItem {
                     Label("stats_tab".localized, systemImage: "chart.bar.fill")
                 }
@@ -159,13 +165,13 @@ struct ContentView: View {
             
             // SETTINGS PAGE
             SettingsView(selectedTab: $selectedTab)
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                    BottomBannerAdContainer()
+                }
                 .tabItem {
                     Label("settings_tab".localized, systemImage: "gearshape.fill")
                 }
                 .tag(2)
-        }
-        .safeAreaInset(edge: .bottom, spacing: 0) {
-            BottomBannerAdContainer()
         }
         .onAppear {
             // Set TabBar appearance to appropriate color
