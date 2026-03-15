@@ -18,134 +18,134 @@ struct ContentView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             // MAIN SCREEN
-            NavigationStack {
-                VStack(spacing: 0) {
-                    // Progress indicator
-                    ZStack {
-                        Circle()
-                            .stroke(lineWidth: 10)
-                            .opacity(0.3)
-                            .foregroundColor(.blue)
-                        
-                        Circle()
-                            .trim(from: 0.0, to: CGFloat(viewModel.progress))
-                            .stroke(style: StrokeStyle(lineWidth: 10, lineCap: .round))
-                            .foregroundColor(.blue)
-                            .rotationEffect(.degrees(-90))
-                            .animation(.easeInOut, value: viewModel.progress)
-                        
-                        VStack {
-                            // Unit display based on Metric/Imperial system
-                            Text(preferences.useMetricSystem ? 
-                                "\(Int(viewModel.todaysTotal)) ml" :
-                                String(format: "%.1f oz", viewModel.todaysTotal * 0.033814))
-                                .font(.system(size: 24, weight: .bold))
-                            
-                            Text(preferences.useMetricSystem ?
-                                String(format: "target_label".localized + " %d ml", Int(viewModel.dailyGoal)) :
-                                String(format: "target_label".localized + " %.1f oz", viewModel.dailyGoal * 0.033814))
-                                .font(.footnote)
-                                .foregroundColor(.secondary)
-                            
-                            Text("\(Int(viewModel.progress * 100))%")
-                                .font(.subheadline.weight(.semibold))
+            VStack(spacing: 0) {
+                NavigationStack {
+                    VStack(spacing: 0) {
+                        // Progress indicator
+                        ZStack {
+                            Circle()
+                                .stroke(lineWidth: 10)
+                                .opacity(0.3)
                                 .foregroundColor(.blue)
-                        }
-                    }
-                    .frame(height: 145)
-                    
-                    
-                    // Info panel
-                    HStack(spacing: 25) {
-                        InfoCard(
-                            title: "drunk_label".localized,
-                            value: preferences.useMetricSystem ?
-                                "\(Int(viewModel.todaysTotal)) ml" :
-                                String(format: "%.1f oz", viewModel.todaysTotal * 0.033814),
-                            systemImage: "drop.fill",
-                            color: .blue
-                        )
-                        .frame(height: 70)
-                        
-                        InfoCard(
-                            title: "remaining_label".localized,
-                            value: preferences.useMetricSystem ?
-                                "\(Int(max(0, viewModel.dailyGoal - viewModel.todaysTotal))) ml" :
-                                String(format: "%.1f oz", max(0, viewModel.dailyGoal - viewModel.todaysTotal) * 0.033814),
-                            systemImage: "gauge",
-                            color: .orange
-                        )
-                        .frame(height: 70)
-                    }
-                    .padding(.horizontal)
-                    .padding(.vertical, 12)
-                    
-                    // Add water button
-                    Button(action: {
-                        showingAddSheet = true
-                    }) {
-                        Label("add_water_button".localized, systemImage: "plus.circle.fill")
-                            .font(.title2)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(12)
-                    }
-                    .accessibilityIdentifier("add_water_button")
-                    .padding(.horizontal)
-                    .padding(.bottom, 12)
-                    
-                    // Daily records list
-                    List {
-                        Section(header: Text("today_records".localized)) {
-                            ForEach(viewModel.waterIntakes.filter { 
-                                Calendar.current.isDateInToday($0.timestamp)
-                            }) { intake in
-                                WaterIntakeRow(intake: intake)
+                            
+                            Circle()
+                                .trim(from: 0.0, to: CGFloat(viewModel.progress))
+                                .stroke(style: StrokeStyle(lineWidth: 10, lineCap: .round))
+                                .foregroundColor(.blue)
+                                .rotationEffect(.degrees(-90))
+                                .animation(.easeInOut, value: viewModel.progress)
+                            
+                            VStack {
+                                // Unit display based on Metric/Imperial system
+                                Text(preferences.useMetricSystem ? 
+                                    "\(Int(viewModel.todaysTotal)) ml" :
+                                    String(format: "%.1f oz", viewModel.todaysTotal * 0.033814))
+                                    .font(.system(size: 24, weight: .bold))
+                                
+                                Text(preferences.useMetricSystem ?
+                                    String(format: "target_label".localized + " %d ml", Int(viewModel.dailyGoal)) :
+                                    String(format: "target_label".localized + " %.1f oz", viewModel.dailyGoal * 0.033814))
+                                    .font(.footnote)
+                                    .foregroundColor(.secondary)
+                                
+                                Text("\(Int(viewModel.progress * 100))%")
+                                    .font(.subheadline.weight(.semibold))
+                                    .foregroundColor(.blue)
                             }
-                            .onDelete { indexSet in
-                                Task {
-                                    await viewModel.removeWaterIntake(at: indexSet)
+                        }
+                        .frame(height: 145)
+                        
+                        
+                        // Info panel
+                        HStack(spacing: 25) {
+                            InfoCard(
+                                title: "drunk_label".localized,
+                                value: preferences.useMetricSystem ?
+                                    "\(Int(viewModel.todaysTotal)) ml" :
+                                    String(format: "%.1f oz", viewModel.todaysTotal * 0.033814),
+                                systemImage: "drop.fill",
+                                color: .blue
+                            )
+                            .frame(height: 70)
+                            
+                            InfoCard(
+                                title: "remaining_label".localized,
+                                value: preferences.useMetricSystem ?
+                                    "\(Int(max(0, viewModel.dailyGoal - viewModel.todaysTotal))) ml" :
+                                    String(format: "%.1f oz", max(0, viewModel.dailyGoal - viewModel.todaysTotal) * 0.033814),
+                                systemImage: "gauge",
+                                color: .orange
+                            )
+                            .frame(height: 70)
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 12)
+                        
+                        // Add water button
+                        Button(action: {
+                            showingAddSheet = true
+                        }) {
+                            Label("add_water_button".localized, systemImage: "plus.circle.fill")
+                                .font(.title2)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(12)
+                        }
+                        .accessibilityIdentifier("add_water_button")
+                        .padding(.horizontal)
+                        .padding(.bottom, 12)
+                        
+                        // Daily records list
+                        List {
+                            Section(header: Text("today_records".localized)) {
+                                ForEach(viewModel.waterIntakes.filter { 
+                                    Calendar.current.isDateInToday($0.timestamp)
+                                }) { intake in
+                                    WaterIntakeRow(intake: intake)
+                                }
+                                .onDelete { indexSet in
+                                    Task {
+                                        await viewModel.removeWaterIntake(at: indexSet)
+                                    }
                                 }
                             }
                         }
+                        .listStyle(InsetGroupedListStyle())
+                        .background(Color(UIColor.systemBackground))
                     }
-                    .listStyle(InsetGroupedListStyle())
                     .background(Color(UIColor.systemBackground))
-                }
-                .background(Color(UIColor.systemBackground))
-                .navigationTitle("app_name".localized)
-                .sheet(isPresented: $showingAddSheet) {
-                    AddWaterView(isPresented: $showingAddSheet) { amount, note in
-                        Task {
-                            let finalAmount = preferences.useMetricSystem ? 
-                                amount : 
-                                amount * 29.5735
-                            await viewModel.addWaterIntake(amount: finalAmount, note: note)
+                    .navigationTitle("app_name".localized)
+                    .sheet(isPresented: $showingAddSheet) {
+                        AddWaterView(isPresented: $showingAddSheet) { amount, note in
+                            Task {
+                                let finalAmount = preferences.useMetricSystem ? 
+                                    amount : 
+                                    amount * 29.5735
+                                await viewModel.addWaterIntake(amount: finalAmount, note: note)
+                            }
+                        }
+                    }.sheet(isPresented: $showingNotificationAddSheet) {
+                        AddWaterView(isPresented: $showingNotificationAddSheet) { amount, note in
+                            Task {
+                                let finalAmount = preferences.useMetricSystem ? 
+                                    amount : 
+                                    amount * 29.5735
+                                await viewModel.addWaterIntake(amount: finalAmount, note: note)
+                            }
                         }
                     }
-                }.sheet(isPresented: $showingNotificationAddSheet) {
-                    AddWaterView(isPresented: $showingNotificationAddSheet) { amount, note in
+                    .onReceive(NotificationCenter.default.publisher(for: Notification.Name("OpenAddWaterView"))) { _ in
+                        showingNotificationAddSheet = true
+                    }
+                    .onAppear {
+                        // Load current data when the view appears
                         Task {
-                            let finalAmount = preferences.useMetricSystem ? 
-                                amount : 
-                                amount * 29.5735
-                            await viewModel.addWaterIntake(amount: finalAmount, note: note)
+                            await viewModel.loadWaterIntakes()
                         }
                     }
                 }
-                .onReceive(NotificationCenter.default.publisher(for: Notification.Name("OpenAddWaterView"))) { _ in
-                    showingNotificationAddSheet = true
-                }
-                .onAppear {
-                    // Load current data when the view appears
-                    Task {
-                        await viewModel.loadWaterIntakes()
-                    }
-                }
-            }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
                 BottomBannerAdContainer()
             }
             .tabItem {
@@ -154,20 +154,20 @@ struct ContentView: View {
             .tag(0)
             
             // STATISTICS PAGE
-            StatsView()
-                .safeAreaInset(edge: .bottom, spacing: 0) {
-                    BottomBannerAdContainer()
-                }
+            VStack(spacing: 0) {
+                StatsView()
+                BottomBannerAdContainer()
+            }
                 .tabItem {
                     Label("stats_tab".localized, systemImage: "chart.bar.fill")
                 }
                 .tag(1)
             
             // SETTINGS PAGE
-            SettingsView(selectedTab: $selectedTab)
-                .safeAreaInset(edge: .bottom, spacing: 0) {
-                    BottomBannerAdContainer()
-                }
+            VStack(spacing: 0) {
+                SettingsView(selectedTab: $selectedTab)
+                BottomBannerAdContainer()
+            }
                 .tabItem {
                     Label("settings_tab".localized, systemImage: "gearshape.fill")
                 }
