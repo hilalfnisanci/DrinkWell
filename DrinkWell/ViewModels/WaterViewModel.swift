@@ -9,12 +9,21 @@ import Foundation
 import SwiftUI
 import SwiftData
 import WidgetKit
+import UIKit
 
 @MainActor
 class WaterViewModel: ObservableObject {
     // Access via DataController
     private let dataController = DataController.shared
     private let preferences = UserPreferences.shared
+    private var dayChangeObserverTokens: [NSObjectProtocol] = []
+
+    private enum WidgetStorageKeys {
+        static let suiteName = "group.com.hilalNisanci.DrinkWell"
+        static let todaysIntake = "todaysIntake"
+        static let dailyGoal = "dailyGoal"
+        static let todaysIntakeDayStart = "todaysIntakeDayStart"
+    }
 
     private enum WaterViewModelError: LocalizedError {
         case loadFailed
@@ -81,11 +90,8 @@ class WaterViewModel: ObservableObject {
             self.dailyGoal = 2500
             UserDefaults.standard.set(self.dailyGoal, forKey: "dailyGoal")
         }
-        
-        // Set initial values for the widget
-        let userDefaults = UserDefaults(suiteName: "group.com.hilalNisanci.DrinkWell")
-        userDefaults?.set(todaysTotal, forKey: "todaysIntake")
-        userDefaults?.set(dailyGoal, forKey: "dailyGoal")
+
+        syncWidgetSnapshot(reloadTimeline: false)
 
         // Load data
         Task {
@@ -93,6 +99,7 @@ class WaterViewModel: ObservableObject {
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(refreshData), name: .themeDidChange, object: nil)
+        setupDayChangeObservers()
     }
 
     @objc private func refreshData() {
@@ -101,8 +108,44 @@ class WaterViewModel: ObservableObject {
         }
     }
 
+    private func setupDayChangeObservers() {
+        let notifications: [Notification.Name] = [
+            .NSCalendarDayChanged,
+            UIApplication.significantTimeChangeNotification,
+            UIApplication.willEnterForegroundNotification
+        ]
+
+        dayChangeObserverTokens = notifications.map { name in
+            NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+                Task { @MainActor [weak self] in
+                    self?.handleCalendarBoundaryChange()
+                }
+            }
+        }
+    }
+
+    private func handleCalendarBoundaryChange() {
+        let calendar = Calendar.current
+        let now = Date()
+        let currentStoredDayStart = calendar.startOfDay(for: currentDate)
+        let actualDayStart = calendar.startOfDay(for: now)
+
+        guard currentStoredDayStart != actualDayStart else {
+            return
+        }
+
+        currentDate = now
+        objectWillChange.send()
+        syncWidgetSnapshot(reloadTimeline: true)
+
+        Task {
+            await loadWaterIntakes()
+        }
+    }
+
     deinit {
         NotificationCenter.default.removeObserver(self)
+        dayChangeObserverTokens.forEach { NotificationCenter.default.removeObserver($0) }
     }
 
     // MARK: - Data Handling Methods
@@ -117,6 +160,7 @@ class WaterViewModel: ObservableObject {
             await MainActor.run {
                 self.waterIntakes = fetchedIntakes
             }
+            syncWidgetSnapshot(reloadTimeline: false)
         } catch {
             print("❌ Error: Failed to load water intakes: \(error.localizedDescription)")
         }
@@ -144,11 +188,26 @@ class WaterViewModel: ObservableObject {
             return []
         }
     }
-    
+
+    private func syncWidgetSnapshot(reloadTimeline: Bool) {
+        guard let userDefaults = UserDefaults(suiteName: WidgetStorageKeys.suiteName) else { return }
+
+        let dayStart = Calendar.current.startOfDay(for: currentDate)
+        userDefaults.set(todaysTotal, forKey: WidgetStorageKeys.todaysIntake)
+        userDefaults.set(dailyGoal, forKey: WidgetStorageKeys.dailyGoal)
+        userDefaults.set(dayStart.timeIntervalSince1970, forKey: WidgetStorageKeys.todaysIntakeDayStart)
+
+        if reloadTimeline {
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+    }
+
     // MARK: - Core Functions
     
     /// Adds a new water intake
     func addWaterIntake(amount: Double, note: String? = nil) async {
+        handleCalendarBoundaryChange()
+
         let newIntake = WaterIntake(amount: amount, timestamp: currentDate, note: note)
         
         dataController.insert(newIntake)
@@ -162,16 +221,12 @@ class WaterViewModel: ObservableObject {
         }
         
         objectWillChange.send()
-
-        // Update the widget
-        let userDefaults = UserDefaults(suiteName: "group.com.hilalNisanci.DrinkWell")
-        userDefaults?.set(todaysTotal, forKey: "todaysIntake")
-        userDefaults?.set(dailyGoal, forKey: "dailyGoal")
-        WidgetCenter.shared.reloadAllTimelines()
+        syncWidgetSnapshot(reloadTimeline: true)
     }
     
     /// Deletes a specific water intake
     func removeWaterIntake(at offsets: IndexSet) async {
+        handleCalendarBoundaryChange()
         let todaysIntakes = await fetchTodaysIntakes()
         
         for index in offsets {
@@ -193,12 +248,7 @@ class WaterViewModel: ObservableObject {
         }
         
         objectWillChange.send()
-
-        // Update the widget
-        let userDefaults = UserDefaults(suiteName: "group.com.hilalNisanci.DrinkWell")
-        userDefaults?.set(todaysTotal, forKey: "todaysIntake")
-        userDefaults?.set(dailyGoal, forKey: "dailyGoal")
-        WidgetCenter.shared.reloadAllTimelines()
+        syncWidgetSnapshot(reloadTimeline: true)
     }
     
     /// Handles date changes
@@ -210,6 +260,8 @@ class WaterViewModel: ObservableObject {
     /// Updates the daily goal
     func updateDailyGoal(_ newGoal: Double) {
         preferences.dailyGoal = newGoal
+        dailyGoal = newGoal
+        syncWidgetSnapshot(reloadTimeline: true)
         objectWillChange.send()
     }
 }

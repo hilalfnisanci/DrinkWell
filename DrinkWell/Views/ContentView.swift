@@ -16,9 +16,9 @@ struct ContentView: View {
     @StateObject private var preferences = UserPreferences.shared
 
     var body: some View {
-        TabView(selection: $selectedTab) {
-            // MAIN SCREEN
-            VStack(spacing: 0) {
+        VStack(spacing: 0) {
+            TabView(selection: $selectedTab) {
+                // MAIN SCREEN
                 NavigationStack {
                     VStack(spacing: 0) {
                         // Progress indicator
@@ -145,33 +145,26 @@ struct ContentView: View {
                             await viewModel.loadWaterIntakes()
                         }
                     }
+                }.tabItem {
+                    Label("home_tab".localized, systemImage: "house.fill")
                 }
-                BottomBannerAdContainer()
-            }
-            .tabItem {
-                Label("home_tab".localized, systemImage: "house.fill")
-            }
-            .tag(0)
-            
-            // STATISTICS PAGE
-            VStack(spacing: 0) {
+                .tag(0)
+                
+                // STATISTICS PAGE
                 StatsView()
-                BottomBannerAdContainer()
-            }
                 .tabItem {
                     Label("stats_tab".localized, systemImage: "chart.bar.fill")
                 }
                 .tag(1)
-            
-            // SETTINGS PAGE
-            VStack(spacing: 0) {
+                
+                // SETTINGS PAGE
                 SettingsView(selectedTab: $selectedTab)
-                BottomBannerAdContainer()
-            }
                 .tabItem {
                     Label("settings_tab".localized, systemImage: "gearshape.fill")
                 }
                 .tag(2)
+            }
+            BottomBannerAdContainer()
         }
         .onAppear {
             // Set TabBar appearance to appropriate color
