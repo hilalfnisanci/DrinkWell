@@ -15,15 +15,28 @@ struct Provider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<WaterEntry>) -> ()) {
         let userDefaults = UserDefaults(suiteName: "group.com.hilalNisanci.DrinkWell")
-
-        let intake = userDefaults?.double(forKey: "todaysIntake") ?? 0
+        let storedIntake = userDefaults?.double(forKey: "todaysIntake") ?? 0
         let goal = userDefaults?.double(forKey: "dailyGoal") ?? 2500
+        let calendar = Calendar.current
+        let startOfToday = calendar.startOfDay(for: Date())
+        let storedDayStart = (userDefaults?.object(forKey: "todaysIntakeDayStart") as? Double)
+            .map { Date(timeIntervalSince1970: $0) }
+
+        let intake: Double
+        if let storedDayStart, calendar.isDate(storedDayStart, inSameDayAs: startOfToday) {
+            intake = storedIntake
+        } else {
+            intake = 0
+            userDefaults?.set(0, forKey: "todaysIntake")
+            userDefaults?.set(startOfToday.timeIntervalSince1970, forKey: "todaysIntakeDayStart")
+        }
 
         print("Widget Timeline - Intake: \(intake), Goal: \(goal)")
         
         let entry = WaterEntry(date: Date(), intake: intake, goal: goal)
-        
-        let nextUpdate = Calendar.current.date(byAdding: .minute, value: 15, to: Date()) ?? Date()
+
+        let startOfTomorrow = calendar.date(byAdding: .day, value: 1, to: startOfToday) ?? Date().addingTimeInterval(60 * 60 * 24)
+        let nextUpdate = calendar.date(byAdding: .minute, value: 1, to: startOfTomorrow) ?? startOfTomorrow
         let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
         
         completion(timeline)

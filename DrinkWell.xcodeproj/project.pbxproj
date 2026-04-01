@@ -606,7 +606,7 @@
 				CODE_SIGN_ENTITLEMENTS = DrinkWellWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 7Z7PC435F7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DrinkWellWidget/Info.plist;
@@ -618,7 +618,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = hilalNisanci.DrinkWell.DrinkWellWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -638,7 +638,7 @@
 				CODE_SIGN_ENTITLEMENTS = DrinkWellWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 7Z7PC435F7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DrinkWellWidget/Info.plist;
@@ -650,7 +650,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = hilalNisanci.DrinkWell.DrinkWellWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -791,7 +791,7 @@
 				CODE_SIGN_ENTITLEMENTS = DrinkWell/DrinkWell.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"DrinkWell/Preview Content\"";
 				DEVELOPMENT_TEAM = 7Z7PC435F7;
 				ENABLE_PREVIEWS = YES;
@@ -809,7 +809,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = hilalNisanci.DrinkWell;
 				PRODUCT_NAME = DrinkWell;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -828,7 +828,7 @@
 				CODE_SIGN_ENTITLEMENTS = DrinkWell/DrinkWell.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"DrinkWell/Preview Content\"";
 				DEVELOPMENT_TEAM = 7Z7PC435F7;
 				ENABLE_PREVIEWS = YES;
@@ -846,7 +846,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = hilalNisanci.DrinkWell;
 				PRODUCT_NAME = DrinkWell;
 				PROVISIONING_PROFILE_SPECIFIER = "";

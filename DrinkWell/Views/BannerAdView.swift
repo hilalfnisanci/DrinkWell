@@ -7,106 +7,133 @@ struct BannerAdView: UIViewRepresentable {
     init(adUnitID: String) {
         self.adUnitID = adUnitID
     }
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
+
     func makeUIView(context: Context) -> BannerView {
-        let bannerView = context.coordinator.bannerView
+        let bannerView = SharedBannerAdService.shared.bannerView(for: adUnitID)
         bannerView.backgroundColor = .clear
         return bannerView
     }
-    
+
     func updateUIView(_ uiView: BannerView, context: Context) {
-        if uiView.rootViewController == nil {
-            uiView.rootViewController = uiView.window?.rootViewController
-        }
-        context.coordinator.updateBanner(rootViewController: uiView.window?.rootViewController)
+        SharedBannerAdService.shared.updateBanner(
+            adUnitID: adUnitID,
+            rootViewController: uiView.window?.rootViewController
+        )
     }
-    
-    class Coordinator: NSObject, BannerViewDelegate {
-        private var parent: BannerAdView
-        private var isRequestInFlight = false
-        
-        private(set) lazy var bannerView: BannerView = {
-            let banner = BannerView()
-            banner.adUnitID = parent.adUnitID
-            // Keep a compact, classic bottom banner size on iPhone.
-            banner.adSize = AdSizeBanner
-            banner.delegate = self
-            return banner
-        }()
-        
-        init(_ parent: BannerAdView) {
-            self.parent = parent
+}
+
+final class SharedBannerAdService: NSObject, BannerViewDelegate {
+    static let shared = SharedBannerAdService()
+
+    private var isRequestInFlight = false
+    private var hasLoadedAd = false
+    private var lastLoadedAdUnitID: String?
+
+    private lazy var sharedBannerView: BannerView = {
+        let banner = BannerView()
+        banner.adSize = AdSizeBanner
+        banner.delegate = self
+        banner.backgroundColor = .clear
+        return banner
+    }()
+
+    private override init() {
+        super.init()
+    }
+
+    func bannerView(for adUnitID: String) -> BannerView {
+        if sharedBannerView.adUnitID != adUnitID {
+            sharedBannerView.adUnitID = adUnitID
+            hasLoadedAd = false
+            lastLoadedAdUnitID = nil
         }
 
-        func updateBanner(rootViewController: UIViewController?) {
-            if bannerView.rootViewController == nil {
-                bannerView.rootViewController = rootViewController ?? currentRootViewController()
-            }
-
-            if bannerView.adUnitID != parent.adUnitID {
-                bannerView.adUnitID = parent.adUnitID
-            }
-
-            if !isRequestInFlight, bannerView.rootViewController != nil {
-                isRequestInFlight = true
-                bannerView.load(Request())
-            }
+        if sharedBannerView.superview != nil {
+            sharedBannerView.removeFromSuperview()
         }
 
-        private func currentRootViewController() -> UIViewController? {
-            UIApplication.shared.connectedScenes
-                .compactMap { $0 as? UIWindowScene }
-                .flatMap(\.windows)
-                .first(where: { $0.isKeyWindow })?
-                .rootViewController
+        return sharedBannerView
+    }
+
+    func updateBanner(adUnitID: String, rootViewController: UIViewController?) {
+        if sharedBannerView.adUnitID != adUnitID {
+            sharedBannerView.adUnitID = adUnitID
+            hasLoadedAd = false
+            lastLoadedAdUnitID = nil
         }
-        
-        // MARK: - BannerViewDelegate
-        func bannerViewDidReceiveAd(_ bannerView: BannerView) {
-            isRequestInFlight = false
-            #if DEBUG
-            print("Banner ad successfully loaded")
-            #endif
+
+        if sharedBannerView.rootViewController == nil {
+            sharedBannerView.rootViewController = rootViewController ?? currentRootViewController()
+        } else if rootViewController != nil {
+            sharedBannerView.rootViewController = rootViewController
         }
-        
-        func bannerView(_ bannerView: BannerView, didFailToReceiveAdWithError error: Error) {
-            isRequestInFlight = false
-            #if DEBUG
-            print("Failed to load banner ad: \(error.localizedDescription)")
-            #endif
-            // Retry once after a short delay when placement has no immediate fill.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-                guard let self else { return }
-                self.updateBanner(rootViewController: self.bannerView.rootViewController)
-            }
+
+        let needsLoad = !hasLoadedAd || lastLoadedAdUnitID != adUnitID
+        guard !isRequestInFlight, needsLoad, sharedBannerView.rootViewController != nil else {
+            return
         }
-        
-        func bannerViewDidRecordImpression(_ bannerView: BannerView) {
-            #if DEBUG
-            print("Banner impression recorded")
-            #endif
+
+        isRequestInFlight = true
+        sharedBannerView.load(Request())
+    }
+
+    private func currentRootViewController() -> UIViewController? {
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap(\.windows)
+            .first(where: { $0.isKeyWindow })?
+            .rootViewController
+    }
+
+    // MARK: - BannerViewDelegate
+    func bannerViewDidReceiveAd(_ bannerView: BannerView) {
+        isRequestInFlight = false
+        hasLoadedAd = true
+        lastLoadedAdUnitID = bannerView.adUnitID
+        #if DEBUG
+        print("Banner ad successfully loaded")
+        #endif
+    }
+
+    func bannerView(_ bannerView: BannerView, didFailToReceiveAdWithError error: Error) {
+        isRequestInFlight = false
+        hasLoadedAd = false
+        #if DEBUG
+        print("Failed to load banner ad: \(error.localizedDescription)")
+        #endif
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            guard
+                let self,
+                let adUnitID = bannerView.adUnitID,
+                !adUnitID.isEmpty
+            else { return }
+
+            self.updateBanner(adUnitID: adUnitID, rootViewController: bannerView.rootViewController)
         }
-        
-        func bannerViewWillPresentScreen(_ bannerView: BannerView) {
-            #if DEBUG
-            print("Banner will present full-screen content")
-            #endif
-        }
-        
-        func bannerViewWillDismissScreen(_ bannerView: BannerView) {
-            #if DEBUG
-            print("Banner will dismiss full-screen content")
-            #endif
-        }
-        
-        func bannerViewDidDismissScreen(_ bannerView: BannerView) {
-            #if DEBUG
-            print("Banner dismissed full-screen content")
-            #endif
-        }
+    }
+
+    func bannerViewDidRecordImpression(_ bannerView: BannerView) {
+        #if DEBUG
+        print("Banner impression recorded")
+        #endif
+    }
+
+    func bannerViewWillPresentScreen(_ bannerView: BannerView) {
+        #if DEBUG
+        print("Banner will present full-screen content")
+        #endif
+    }
+
+    func bannerViewWillDismissScreen(_ bannerView: BannerView) {
+        #if DEBUG
+        print("Banner will dismiss full-screen content")
+        #endif
+    }
+
+    func bannerViewDidDismissScreen(_ bannerView: BannerView) {
+        #if DEBUG
+        print("Banner dismissed full-screen content")
+        #endif
     }
 }

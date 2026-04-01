@@ -18,7 +18,9 @@
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-2543228431265950~1319517185</string>
 	<key>GADBannerAdUnitID</key>
-	<string>ca-app-pub-3940256099942544/2435281174</string>
+	<string>ca-app-pub-2543228431265950/5767497268</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
